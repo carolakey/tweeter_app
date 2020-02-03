@@ -1,1 +1,1 @@
-web: gunicorn django_pages.wsgi
+web: gunicorn tweeter_app.wsgi
