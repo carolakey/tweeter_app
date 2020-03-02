@@ -38,10 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'rest_auth',
+    'rest_auth.registration',
     'bootstrap4',
     'bootstrap_datepicker_plus',
     'users',
     'tweets',
+    'api',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -106,9 +115,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [ # new
+        'rest_framework.authentication.TokenAuthentication', # new
+        'rest_framework.authentication.SessionAuthentication', # new
+],
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
+
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -125,13 +147,14 @@ BOOTSTRAP4 = { 'include_jquery': True }
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+SITE_ID = 1
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = os.getenv('SENDGRID_USERNAME')
-EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_HOST = 'smtp.sendgrid.net'
+#EMAIL_HOST_USER = os.getenv('SENDGRID_USERNAME')
+#EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
 
 
 # Static files (CSS, JavaScript, Images)
